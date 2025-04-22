@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var speed = 400 #note, the number means the number of pixels to move.
+var speed = 500 #note, the number means the number of pixels to move.
 var rocket_scene = preload("res://scenes/rocket.tscn")
 
 # @onready var rocket_container = get_node("RocketContainer")

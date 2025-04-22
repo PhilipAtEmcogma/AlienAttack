@@ -23,3 +23,9 @@ func _physics_process(delta: float):
 
 func _on_screen_exited():
 	queue_free() #delete when rocket exit screen, Godot know it is exited when the VisibleNotifier node exit scren	
+
+
+#called when an aread entered the area this function/script is attached to, i.e. the rocket scene
+func _on_area_entered(area: Area2D) -> void:
+	queue_free() #use this function to delete the rocket once contact with enemy
+	area.die()
