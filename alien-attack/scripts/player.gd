@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+#custom signal
+signal took_damage
+
 var speed = 500 #note, the number means the number of pixels to move.
 var rocket_scene = preload("res://scenes/rocket.tscn")
 
@@ -56,3 +59,11 @@ func shoot():
 	rocket_container.add_child(rocket_instance)
 	rocket_instance.global_position = global_position
 	rocket_instance.global_position.x += 80
+
+func take_damage():
+	#emit the custom signal (took_damage) to indicate damage is taken and reduce lives, 
+	# lives is hosted in another scene and script
+	emit_signal("took_damage")
+
+func die():
+	queue_free()
