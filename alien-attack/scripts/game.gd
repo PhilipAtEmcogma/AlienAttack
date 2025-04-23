@@ -1,17 +1,20 @@
 extends Node2D
 
 var lives = 3
-var scores = 0000
+var scores = 0
 
 @onready var player = $Player
 @onready var hud = $UI/HUD #HUD is a chld of the UI, so in this is how we reference it
+@onready var ui = $UI
+
+var gos_scene = preload("res://scenes/game_over_screen.tscn")
 
 func _ready():
 	hud.set_score_label(scores)
 	hud.set_lives(lives)
 
 func _on_deathzone_area_entered(area: Area2D):
-	area.die()
+	area.queue_free()
 
 
 func _on_player_took_damage() -> void:
@@ -20,6 +23,12 @@ func _on_player_took_damage() -> void:
 	if lives == 0:
 		print("Game Over")
 		player.die()
+		#wait awhile before showing Game Over Screen
+		await get_tree().create_timer(1.5).timeout
+		
+		var gos = gos_scene.instantiate()
+		gos.set_score(scores)
+		ui.add_child(gos)
 	hud.set_lives(lives)
 
 
