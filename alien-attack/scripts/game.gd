@@ -8,6 +8,7 @@ var scores = 0000
 
 func _ready():
 	hud.set_score_label(scores)
+	hud.set_lives(lives)
 
 func _on_deathzone_area_entered(area: Area2D):
 	area.die()
@@ -15,11 +16,11 @@ func _on_deathzone_area_entered(area: Area2D):
 
 func _on_player_took_damage() -> void:
 	lives -= 1
+
 	if lives == 0:
 		print("Game Over")
 		player.die()
-	else:
-		print(str(lives) + " lives left")
+	hud.set_lives(lives)
 
 
 func _on_enemy_spawner_enemy_spawned(enemy_instance: Variant) -> void:
