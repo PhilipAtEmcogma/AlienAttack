@@ -8,6 +8,7 @@ var rocket_scene = preload("res://scenes/rocket.tscn")
 
 # @onready var rocket_container = get_node("RocketContainer")
 @onready var rocket_container = $RocketContainer #NOTE: this line and the line above it, its identical. bot do something when onReady() is first run.
+@onready var rocket_shot_sound = $RocketShotSound
 
 func _process(delta):
 	if Input.is_action_just_pressed("shoot"):
@@ -59,6 +60,7 @@ func shoot():
 	rocket_container.add_child(rocket_instance)
 	rocket_instance.global_position = global_position
 	rocket_instance.global_position.x += 80
+	rocket_shot_sound.play()
 
 func take_damage():
 	#emit the custom signal (took_damage) to indicate damage is taken and reduce lives, 

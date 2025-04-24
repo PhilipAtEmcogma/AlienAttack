@@ -7,6 +7,9 @@ var scores = 0
 @onready var hud = $UI/HUD #HUD is a chld of the UI, so in this is how we reference it
 @onready var ui = $UI
 
+@onready var enemu_hit_sound = $EnemyHitSound
+@onready var player_hit_sound = $PlayerHitSound
+
 var gos_scene = preload("res://scenes/game_over_screen.tscn")
 
 func _ready():
@@ -18,6 +21,7 @@ func _on_deathzone_area_entered(area: Area2D):
 
 
 func _on_player_took_damage() -> void:
+	player_hit_sound.play()
 	lives -= 1
 
 	if lives == 0:
@@ -30,6 +34,7 @@ func _on_player_took_damage() -> void:
 		gos.set_score(scores)
 		ui.add_child(gos)
 	hud.set_lives(lives)
+	
 
 
 func _on_enemy_spawner_enemy_spawned(enemy_instance: Variant) -> void:
@@ -39,3 +44,4 @@ func _on_enemy_spawner_enemy_spawned(enemy_instance: Variant) -> void:
 func  _on_enemy_died():
 	scores += 100
 	hud.set_score_label(scores)
+	enemu_hit_sound.play()
